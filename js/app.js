@@ -26,19 +26,22 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 class Player {
     //constructor
-    constructor () {
-        this.sprite = '../images/char-boy.png';
+    constructor (x, y) {
+        // Initial position and player image
+        this.x = x;
+        this.y = y;
+        this.sprite = 'images/char-boy.png';
 
     }
     //Methods for Player's Prototype
-    update() {
+    update (dt) {
         // This thing is called over and over again
         //console.log (`This is ${this}'s update() Method.`);
     }
 
-    render() {
+    render () {
         // This thing is called over and over again
-        //console.log (`This is ${this}'s render() Method.`);
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
         
     }
 
@@ -46,13 +49,25 @@ class Player {
         // This thing is called everytime an allowedKey is pressed
         console.log (`This is ${this}'s handleInput() Method.`);
     }
+
+    reset () {
+        this.x = 200;
+        this.y = 400;
+    }
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [];
 // Place the player object in a variable called player
-let player = new Player();
+let player = new Player (200, 400);
+
+
+
+// Initiate and Restart game
+function gameRestart () {
+    player.reset();
+}
 
 
 // This listens for key presses and sends the keys to your
