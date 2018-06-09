@@ -61,8 +61,15 @@ class Player {
             console.log (`x: ${this.x} y:${this.y}`);
         }
         if (keyPressed === 'up' && this.y >= 0) {
-                this.y -= 45;
-                console.log (`x: ${this.x} y:${this.y}`);       
+            this.y -= 45;
+            console.log (`x: ${this.x} y:${this.y}`);       
+        }
+        // reset game when player reaches water
+        if (this.y == -40) {
+            console.log ("Congratulation, you've won!");       
+            setTimeout ( function () {
+                gameRestart();
+            }, 500);
         }
     }
 
