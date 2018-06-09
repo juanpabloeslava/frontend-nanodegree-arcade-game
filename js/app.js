@@ -40,31 +40,33 @@ class Player {
     }
 
     render () {
-        // This thing is called over and over again
+        // This thing is called over and over again. It is what paints thing on the canvas
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
     handleInput (keyPressed) {
-        // This thing is called everytime an allowedKey is pressed
-        console.log (`This is ${this}'s handleInput() Method.`);
         // check for pressed keys (these strings come from the eventListener that points to the listenForKey() function) and act accordingly
-        if (keyPressed === 'left' ) {
-            this.x -= 50;
+        if (keyPressed === 'left' && this.x >= 20 ) {
+            this.x -= 45;
+            console.log (`x: ${this.x} y:${this.y}`);
         }
-        if (keyPressed === 'right' ) {
-            this.x += 50;
+        if (keyPressed === 'right' && this.x <= 380 ) {
+            this.x += 45;
+            console.log (`x: ${this.x} y:${this.y}`);
         }
-        if (keyPressed === 'up' ) {
-            this.y -= 50;
+        if (keyPressed === 'down' && this.y <= 405 ) {
+            this.y += 45;
+            console.log (`x: ${this.x} y:${this.y}`);
         }
-        if (keyPressed === 'down' ) {
-            this.y += 50;
+        if (keyPressed === 'up' && this.y >= 0) {
+                this.y -= 45;
+                console.log (`x: ${this.x} y:${this.y}`);       
         }
     }
 
     reset () {
         this.x = 200;
-        this.y = 400;
+        this.y = 410;
     }
 }
 
@@ -72,11 +74,12 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [];
 // Place the player object in a variable called player. player is set at the bottom middle of the game-screen
-let player = new Player (200, 400);
+let player = new Player (200, 410);
+console.log (`x: ${player.x} y:${player.y}`);
 
 
 
-// Initiate and Restart game
+// Restart game
 function gameRestart () {
     player.reset();
 }
@@ -84,7 +87,7 @@ function gameRestart () {
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', function listenForKey (e) {
     var allowedKeys = {
         37: 'left',
         38: 'up',
