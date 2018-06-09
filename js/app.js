@@ -35,19 +35,31 @@ class Player {
     }
     //Methods for Player's Prototype
     update (dt) {
-        // This thing is called over and over again
+        // This thing is called over and over again. If it's not there, nothing shows
         //console.log (`This is ${this}'s update() Method.`);
     }
 
     render () {
         // This thing is called over and over again
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        
     }
 
-    handleInput() {
+    handleInput (keyPressed) {
         // This thing is called everytime an allowedKey is pressed
         console.log (`This is ${this}'s handleInput() Method.`);
+        // check for pressed keys (these strings come from the eventListener that points to the listenForKey() function) and act accordingly
+        if (keyPressed === 'left' ) {
+            this.x -= 50;
+        }
+        if (keyPressed === 'right' ) {
+            this.x += 50;
+        }
+        if (keyPressed === 'up' ) {
+            this.y -= 50;
+        }
+        if (keyPressed === 'down' ) {
+            this.y += 50;
+        }
     }
 
     reset () {
@@ -59,7 +71,7 @@ class Player {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [];
-// Place the player object in a variable called player
+// Place the player object in a variable called player. player is set at the bottom middle of the game-screen
 let player = new Player (200, 400);
 
 
