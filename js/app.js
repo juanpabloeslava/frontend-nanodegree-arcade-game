@@ -25,11 +25,19 @@ class Enemy {
             this.x = -60;
             this.speed = Math.floor( (Math.random() * 250) + 150 );
         }
+
+        this.checkForCollision();
     }
 
     // Draw the enemy on the screen, required method for game
     render () {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+    checkForCollision () {
+        if ( (player.x < this.x + 80) && (player.x + 80 > this.x)  && (player.y < this.y + 60) && (player.y + 60 > this.y) ) {
+            player.die();
+        }
     }
 }
 
@@ -42,6 +50,7 @@ class Player {
         // Initial position and player image
         this.x = x;
         this.y = y;
+        this.alive = true;
         this.sprite = 'images/char-boy.png';
 
     }
@@ -58,34 +67,44 @@ class Player {
 
     handleInput (keyPressed) {
         // check for pressed keys (these strings come from the eventListener that points to the listenForKey() function) and act accordingly
-        if (keyPressed === 'left' && this.x >= 20 ) {
-            this.x -= 100;
-            console.log (`x: ${this.x} y:${this.y}`);
-        }
-        if (keyPressed === 'right' && this.x <= 380 ) {
-            this.x += 100;
-            console.log (`x: ${this.x} y:${this.y}`);
-        }
-        if (keyPressed === 'down' && this.y <= 405 ) {
-            this.y += 85;
-            console.log (`x: ${this.x} y:${this.y}`);
-        }
-        if (keyPressed === 'up' && this.y >= 0) {
-            this.y -= 85;
-            console.log (`x: ${this.x} y:${this.y}`);       
-        }
-        // reset game when player reaches water
-        if (this.y <= -10) {
-            console.log ("Congratulation, you've won!");       
-            setTimeout ( function () {
-                gameRestart();
-            }, 500);
+        if (this.alive) {
+            if (keyPressed === 'left' && this.x >= 20 ) {
+                this.x -= 100;
+                console.log (`x: ${this.x} y:${this.y}`);
+            }
+            if (keyPressed === 'right' && this.x <= 380 ) {
+                this.x += 100;
+                console.log (`x: ${this.x} y:${this.y}`);
+            }
+            if (keyPressed === 'down' && this.y <= 405 ) {
+                this.y += 85;
+                console.log (`x: ${this.x} y:${this.y}`);
+            }
+            if (keyPressed === 'up' && this.y >= 0) {
+                this.y -= 85;
+                console.log (`x: ${this.x} y:${this.y}`);       
+            }
+            // reset game when player reaches water
+            if (this.y <= -10) {
+                console.log ("Congratulation, you've won!");       
+                setTimeout ( function () {
+                    gameRestart();
+                }, 500);
+            } 
         }
     }
 
     reset () {
         this.x = 200;
         this.y = 410;
+        this.alive = true;
+    }
+
+    die () {
+        this.alive = false;
+        setTimeout (function () {  
+            player.reset();
+        }, 1000);
     }
 }
 
@@ -94,9 +113,10 @@ class Player {
 let allEnemies = [];
 let enemiesYPos = [60, 142, 225];
 
-
 for (const enemyY of enemiesYPos) {
-    let enemy = new Enemy (-60, enemyY, 200);
+    const initialSpeed = Math.floor( (Math.random() * 250) + 150 );
+    const enemyX = Math.floor( (Math.random() * -100) - 50 );
+    let enemy = new Enemy (enemyX, enemyY, initialSpeed);
     // push new instance of Enemy into allEnemies array, so game engine will create it.
     allEnemies.push(enemy);
 }
