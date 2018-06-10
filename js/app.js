@@ -1,11 +1,13 @@
 // Enemies our player must avoid
 class Enemy {
-    constructor () {
+    constructor (x, y, speed) {
         // Variables applied to each of our instances go here,
         // we've provided one for you to get started
-
         // The image/sprite for our enemies, this uses
         // a helper we've provided to easily load images
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
         this.sprite = 'images/enemy-bug.png';
     }
 
@@ -15,6 +17,14 @@ class Enemy {
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
+        // set a random speed for the enemies
+        // add the speed to the enemies movement
+        this.x += this.speed * dt;
+        // relocate enemies at the start when they cross the board
+        if (this.x >= 505) {
+            this.x = -60;
+            this.speed = Math.floor( (Math.random() * 250) + 150 );
+        }
     }
 
     // Draw the enemy on the screen, required method for game
@@ -82,6 +92,14 @@ class Player {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [];
+let enemiesYPos = [60, 142, 225];
+
+
+for (const enemyY of enemiesYPos) {
+    let enemy = new Enemy (-60, enemyY, 200);
+    // push new instance of Enemy into allEnemies array, so game engine will create it.
+    allEnemies.push(enemy);
+}
 // Place the player object in a variable called player. player is set at the bottom middle of the game-screen
 let player = new Player (200, 410);
 console.log (`x: ${player.x} y:${player.y}`);
