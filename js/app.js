@@ -59,23 +59,23 @@ class Player {
     handleInput (keyPressed) {
         // check for pressed keys (these strings come from the eventListener that points to the listenForKey() function) and act accordingly
         if (keyPressed === 'left' && this.x >= 20 ) {
-            this.x -= 45;
+            this.x -= 100;
             console.log (`x: ${this.x} y:${this.y}`);
         }
         if (keyPressed === 'right' && this.x <= 380 ) {
-            this.x += 45;
+            this.x += 100;
             console.log (`x: ${this.x} y:${this.y}`);
         }
         if (keyPressed === 'down' && this.y <= 405 ) {
-            this.y += 45;
+            this.y += 85;
             console.log (`x: ${this.x} y:${this.y}`);
         }
         if (keyPressed === 'up' && this.y >= 0) {
-            this.y -= 45;
+            this.y -= 85;
             console.log (`x: ${this.x} y:${this.y}`);       
         }
         // reset game when player reaches water
-        if (this.y == -40) {
+        if (this.y <= -10) {
             console.log ("Congratulation, you've won!");       
             setTimeout ( function () {
                 gameRestart();
@@ -103,8 +103,6 @@ for (const enemyY of enemiesYPos) {
 // Place the player object in a variable called player. player is set at the bottom middle of the game-screen
 let player = new Player (200, 410);
 console.log (`x: ${player.x} y:${player.y}`);
-
-
 
 // Restart game
 function gameRestart () {
