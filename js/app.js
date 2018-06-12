@@ -11,7 +11,7 @@ let min = 0;
 let sec = 0;
 // lives
 let justDied = 0;
-let livesDisplay = document.getElementsByName('lives');
+let livesDisplay = document.getElementById('lives');
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -53,7 +53,6 @@ class Enemy {
             justDied++;
             if (justDied == 1) {
                 player.die();
-                console.log('player is dying');
             }
         }
     }
@@ -136,11 +135,13 @@ class Player {
 
     gainLive () {
         this.lives++;
+        displayLives();
         console.log (`player lives: ${this.lives}`);
     }
 
     loseLive () {
         this.lives--;
+        displayLives();
         console.log (`player lives: ${this.lives}`);
     }
 }
@@ -171,7 +172,7 @@ console.log (`x: ${player.x} y:${player.y}`);
 ------------------------------------- */
 // Event Listeners
 // initial game set up on page load
-// document.addEventListener("DOMContentLoaded", displayLives);
+document.addEventListener("DOMContentLoaded", gameInit);
 // restart game
 restartButton.addEventListener('click', gameRestart);
 // This listens for key presses and sends the keys to your
@@ -186,12 +187,22 @@ document.addEventListener('keyup', function listenForKey (e) {
     player.handleInput(allowedKeys[e.keyCode]);
     //
     if (firstKeypress == 1) {
-        timer();
+        gameInit();
     }
 });
+// init game
+function gameInit () {
+    livesDisplay.innerHTML = '3';
+    //start timer
+    timer();
+    // display lives
+    displayLives();
+}
 // lives
 function displayLives () {
-    livesDisplay.innerHTML = player.lives;   
+    let currentLives = player.lives;
+    livesDisplay.innerHTML = addZeroNumber(currentLives); 
+    console.log (`display lives says: ${livesDisplay.innerHTML}`); 
 }
 // time
 function timer () {
