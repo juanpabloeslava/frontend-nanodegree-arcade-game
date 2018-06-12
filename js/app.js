@@ -1,4 +1,9 @@
-// Enemies our player must avoid
+/* -------------------------------------
+------  CLASSES AND VARIABLES ----------
+------------------------------------- */
+// restart game variables
+const restartButton = document.querySelector('#restart-btn');
+// Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
         // Variables applied to each of our instances go here,
@@ -40,10 +45,7 @@ class Enemy {
         }
     }
 }
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// Player Class
 class Player {
     //constructor
     constructor (x, y) {
@@ -108,11 +110,15 @@ class Player {
     }
 }
 
-// Now instantiate your objects.
+/* -------------------------------------
+----------  OBJECT INSTANCES -----------
+------------------------------------- */
+
+// Start Enemies
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [];
 let enemiesYPos = [60, 142, 225];
-
+//
 for (const enemyY of enemiesYPos) {
     const initialSpeed = Math.floor( (Math.random() * 250) + 150 );
     const enemyX = Math.floor( (Math.random() * -100) - 50 );
@@ -120,16 +126,22 @@ for (const enemyY of enemiesYPos) {
     // push new instance of Enemy into allEnemies array, so game engine will create it.
     allEnemies.push(enemy);
 }
+// Start player
 // Place the player object in a variable called player. player is set at the bottom middle of the game-screen
 let player = new Player (200, 410);
 console.log (`x: ${player.x} y:${player.y}`);
 
+/* -------------------------------------
+-------  FUNCTIONS & LISTENERS  --------
+------------------------------------- */
+// Event Listeners
+restartButton.addEventListener('click', gameRestart);
+
+// Functions
 // Restart game
 function gameRestart () {
     player.reset();
 }
-
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function listenForKey (e) {
