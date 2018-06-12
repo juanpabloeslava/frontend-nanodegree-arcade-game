@@ -9,7 +9,7 @@ let minDisplay = document.getElementById('minutes');
 let secDisplay = document.getElementById('seconds');
 let min = 0;
 let sec = 0;
-let firstKeypress = true;
+let firstKeypress = 0;
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -79,18 +79,22 @@ class Player {
         if (this.alive) {
             if (keyPressed === 'left' && this.x >= 20 ) {
                 this.x -= 100;
+                firstKeypress++;
                 console.log (`x: ${this.x} y:${this.y}`);
             }
             if (keyPressed === 'right' && this.x <= 380 ) {
                 this.x += 100;
+                firstKeypress++;
                 console.log (`x: ${this.x} y:${this.y}`);
             }
             if (keyPressed === 'down' && this.y <= 405 ) {
                 this.y += 85;
+                firstKeypress++;
                 console.log (`x: ${this.x} y:${this.y}`);
             }
             if (keyPressed === 'up' && this.y >= 0) {
                 this.y -= 85;
+                firstKeypress++;
                 console.log (`x: ${this.x} y:${this.y}`);       
             }
             // reset game when player reaches water
@@ -153,9 +157,8 @@ document.addEventListener('keyup', function listenForKey (e) {
         40: 'down'
     };
     player.handleInput(allowedKeys[e.keyCode]);
-    firstKeypress = false;
-
-    if (!firstKeypress) {
+    //
+    if (firstKeypress == 1) {
         timer();
     }
 });
@@ -177,7 +180,7 @@ function timer () {
 
 function resetTimer () {
     // 
-    firstKeypress = true;
+    firstKeypress = 0;
     clearInterval(timerInterval);
     sec = 0;
     min = 0;
