@@ -3,6 +3,12 @@
 ------------------------------------- */
 // restart game variables
 const restartButton = document.querySelector('#restart-btn');
+// timer variables
+let timerCounter = document.getElementById('timeCounter');
+let minDisplay = document.getElementById('minutes');
+let secDisplay = document.getElementById('seconds');
+let min = 0;
+let sec = 0;
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -136,12 +142,6 @@ console.log (`x: ${player.x} y:${player.y}`);
 ------------------------------------- */
 // Event Listeners
 restartButton.addEventListener('click', gameRestart);
-
-// Functions
-// Restart game
-function gameRestart () {
-    player.reset();
-}
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function listenForKey (e) {
@@ -151,6 +151,46 @@ document.addEventListener('keyup', function listenForKey (e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function timer () {
+    timerInterval = setInterval (function (){
+        // check the seconds
+        if (sec < 59) {
+            sec++;
+        } else {
+            sec = 0;
+            min++;
+        }   
+        // update seconds and minutes label
+        secDisplay.innerHTML = addZeroTimer(sec);
+        minDisplay.innerHTML = addZeroTimer(min);
+    }, 1000); 
+}
+
+function resetTimer () {
+    clearInterval(timerInterval);
+    sec = 0;
+    min = 0;
+    // update seconds and minutes label
+    secDisplay.innerHTML = addZeroTimer(sec);
+    minDisplay.innerHTML = addZeroTimer(min);
+}
+
+// add 0 if needed to the displayed timer (01:09 instead of 1:9)
+function addZeroTimer (val) {
+    // convert integers to string, to measure their lenght
+    let valString = val.toString();
+    // if .lenght is less than two, it means the number is in the single digits
+    if (valString.length < 2) {
+        return "0" + valString;
+    } else {
+        return valString;
+    }
+}
+// Restart game Function
+function gameRestart () {
+    player.reset();
+}
+
