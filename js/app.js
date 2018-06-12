@@ -9,6 +9,7 @@ let minDisplay = document.getElementById('minutes');
 let secDisplay = document.getElementById('seconds');
 let min = 0;
 let sec = 0;
+let firstKeypress = true;
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -152,6 +153,11 @@ document.addEventListener('keyup', function listenForKey (e) {
         40: 'down'
     };
     player.handleInput(allowedKeys[e.keyCode]);
+    firstKeypress = false;
+
+    if (!firstKeypress) {
+        timer();
+    }
 });
 
 function timer () {
@@ -170,6 +176,8 @@ function timer () {
 }
 
 function resetTimer () {
+    // 
+    firstKeypress = true;
     clearInterval(timerInterval);
     sec = 0;
     min = 0;
