@@ -4,11 +4,12 @@
 // restart game variables
 const restartButton = document.querySelector('#restart-btn');
 // timer variables
-let timerCounter = document.getElementById('timeCounter');
 let minDisplay = document.getElementById('minutes');
 let secDisplay = document.getElementById('seconds');
 let min = 0;
 let sec = 0;
+// lives
+let livesDisplay = document.getElementsByName('lives')
 let firstKeypress = 0;
 // Enemy Class our player must avoid
 class Enemy {
@@ -59,6 +60,7 @@ class Player {
         // Initial position and player image
         this.x = x;
         this.y = y;
+        this.lives = 3;
         this.alive = true;
         this.sprite = 'images/char-boy.png';
 
@@ -99,9 +101,9 @@ class Player {
             }
             // reset game when player reaches water
             if (this.y <= -10) {
-                console.log ("Congratulation, you've won!");       
+                this.alive = false;     
                 setTimeout ( function () {
-                    gameRestart();
+                    player.getPoint();
                 }, 500);
             } 
         }
@@ -118,6 +120,22 @@ class Player {
         setTimeout (function () {  
             player.reset();
         }, 1000);
+        this.loseLive();
+    }
+
+    getPoint () {
+        this.gainLive();
+        this.reset();
+    }
+
+    gainLive () {
+        this.lives++;
+        console.log (`player lives: ${this.lives}`);
+    }
+
+    loseLive () {
+        this.lives--;
+        console.log (`player lives: ${this.lives}`);
     }
 }
 
@@ -173,8 +191,8 @@ function timer () {
             min++;
         }   
         // update seconds and minutes label
-        secDisplay.innerHTML = addZeroTimer(sec);
-        minDisplay.innerHTML = addZeroTimer(min);
+        secDisplay.innerHTML = addZeroNumber(sec);
+        minDisplay.innerHTML = addZeroNumber(min);
     }, 1000); 
 }
 
@@ -184,12 +202,12 @@ function resetTimer () {
     sec = 0;
     min = 0;
     // update seconds and minutes label
-    secDisplay.innerHTML = addZeroTimer(sec);
-    minDisplay.innerHTML = addZeroTimer(min);
+    secDisplay.innerHTML = addZeroNumber(sec);
+    minDisplay.innerHTML = addZeroNumber(min);
 }
 
 // add 0 if needed to the displayed timer (01:09 instead of 1:9)
-function addZeroTimer (val) {
+function addZeroNumber (val) {
     // convert integers to string, to measure their lenght
     let valString = val.toString();
     // if .lenght is less than two, it means the number is in the single digits
