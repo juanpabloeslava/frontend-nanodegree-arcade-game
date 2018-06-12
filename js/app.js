@@ -4,13 +4,14 @@
 // restart game variables
 const restartButton = document.querySelector('#restart-btn');
 // timer variables
+let firstKeypress = 0;
 let minDisplay = document.getElementById('minutes');
 let secDisplay = document.getElementById('seconds');
 let min = 0;
 let sec = 0;
 // lives
-let livesDisplay = document.getElementsByName('lives')
-let firstKeypress = 0;
+let justDied = 0;
+let livesDisplay = document.getElementsByName('lives');
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -49,7 +50,11 @@ class Enemy {
 
     checkForCollision () {
         if ( (player.x < this.x + 80) && (player.x + 80 > this.x)  && (player.y < this.y + 60) && (player.y + 60 > this.y) ) {
-            player.die();
+            justDied++;
+            if (justDied == 1) {
+                player.die();
+                console.log('player is dying');
+            }
         }
     }
 }
@@ -113,14 +118,15 @@ class Player {
         this.x = 200;
         this.y = 410;
         this.alive = true;
+        justDied = 0;
     }
 
     die () {
         this.alive = false;
+        this.loseLive();
         setTimeout (function () {  
             player.reset();
         }, 1000);
-        this.loseLive();
     }
 
     getPoint () {
@@ -164,6 +170,9 @@ console.log (`x: ${player.x} y:${player.y}`);
 -------  FUNCTIONS & LISTENERS  --------
 ------------------------------------- */
 // Event Listeners
+// initial game set up on page load
+// document.addEventListener("DOMContentLoaded", displayLives);
+// restart game
 restartButton.addEventListener('click', gameRestart);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -180,7 +189,11 @@ document.addEventListener('keyup', function listenForKey (e) {
         timer();
     }
 });
-
+// lives
+function displayLives () {
+    livesDisplay.innerHTML = player.lives;   
+}
+// time
 function timer () {
     timerInterval = setInterval (function (){
         // check the seconds
@@ -195,7 +208,6 @@ function timer () {
         minDisplay.innerHTML = addZeroNumber(min);
     }, 1000); 
 }
-
 function resetTimer () {
     firstKeypress = 0;
     clearInterval(timerInterval);
@@ -205,7 +217,6 @@ function resetTimer () {
     secDisplay.innerHTML = addZeroNumber(sec);
     minDisplay.innerHTML = addZeroNumber(min);
 }
-
 // add 0 if needed to the displayed timer (01:09 instead of 1:9)
 function addZeroNumber (val) {
     // convert integers to string, to measure their lenght
