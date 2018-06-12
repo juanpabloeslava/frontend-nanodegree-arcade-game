@@ -179,7 +179,6 @@ function timer () {
 }
 
 function resetTimer () {
-    // 
     firstKeypress = 0;
     clearInterval(timerInterval);
     sec = 0;
@@ -203,5 +202,6 @@ function addZeroTimer (val) {
 // Restart game Function
 function gameRestart () {
     player.reset();
+    resetTimer();
 }
 
