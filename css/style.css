@@ -1,3 +1,42 @@
+/*
+ * General Styles
+ */
+
 body {
     text-align: center;
+    font-family: 'Coda', cursive;
+}
+
+/*
+ * Styles for the Score Panel
+ */
+
+.score-panel {
+    text-align: left;
+    display: inline-block;
+    width: 345px;
+    margin-bottom: 10px;
+}
+
+.score-panel .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
+}
+
+.score-panel p {
+    display: inline-block;
+    margin: 0 40px;
+    min-width: 55px;
 }
