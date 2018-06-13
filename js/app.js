@@ -39,7 +39,6 @@ class Enemy {
             this.x = -60;
             this.speed = Math.floor( (Math.random() * 250) + 150 );
         }
-
         this.checkForCollision();
     }
 
@@ -151,11 +150,12 @@ class Player {
 ------------------------------------- */
 
 // Start Enemies
-// Place all enemy objects in an array called allEnemies
+// Place all enemy objects in an array called allEnemies (otherwise nothing works)
 let allEnemies = [];
 let enemiesYPos = [60, 142, 225];
 //
 for (const enemyY of enemiesYPos) {
+    // intial speed and x position are random (within a range)
     const initialSpeed = Math.floor( (Math.random() * 250) + 150 );
     const enemyX = Math.floor( (Math.random() * -100) - 50 );
     let enemy = new Enemy (enemyX, enemyY, initialSpeed);
