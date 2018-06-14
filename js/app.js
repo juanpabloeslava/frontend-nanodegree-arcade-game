@@ -12,6 +12,8 @@ let sec = 0;
 // lives
 let justDied = 0;
 let livesDisplay = document.getElementById('lives');
+// levels
+let gameLevel = 1;
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -37,7 +39,19 @@ class Enemy {
         // relocate enemies at the start when they cross the board
         if (this.x >= 505) {
             this.x = -60;
-            this.speed = Math.floor( (Math.random() * 250) + 150 );
+
+            if (gameLevel == 1) {
+                this.speed = Math.floor( (Math.random() * 250) + 150 );
+            }
+            if (gameLevel == 2) {
+                this.speed = Math.floor( (Math.random() * 300) + 200 );
+            }
+            if (gameLevel == 3) {
+                this.speed = Math.floor( (Math.random() * 300) + 250 );
+            }
+            if (gameLevel == 4) {
+                this.speed = Math.floor( (Math.random() * 350) + 250 );
+            }
         }
         this.checkForCollision();
     }
@@ -112,37 +126,79 @@ class Player {
         }
     }
 
-    reset () {
+    respawn () {
+        this.checkGameLevel();
         this.x = 200;
         this.y = 410;
         this.alive = true;
         justDied = 0;
     }
 
+    reset () {
+        gameLevel = 1;
+        this.restoreLives();
+        this.respawn();
+    }
+
     die () {
         this.alive = false;
         this.loseLive();
         setTimeout (function () {  
-            player.reset();
+            player.respawn();
         }, 1000);
     }
 
     getPoint () {
         this.gainLive();
-        this.reset();
+        this.respawn();
     }
 
     gainLive () {
         this.lives++;
         displayLives();
-        console.log (`player lives: ${this.lives}`);
     }
 
     loseLive () {
         this.lives--;
         displayLives();
-        console.log (`player lives: ${this.lives}`);
     }
+
+    restoreLives () {
+        this.lives = 3;
+        displayLives();
+    }
+
+    checkGameLevel () {
+        if (this.lives == 0) {
+            // player looses
+            console.log('YOU LOST!');
+        } 
+        if (this.lives > 0) {
+            // level 1
+            gameLevel = 1;
+            console.log('level 1');
+        } 
+        if (this.lives >= 5) {
+            // level 2
+            gameLevel = 2;
+            console.log('level 2');
+        } 
+        if (this.lives >= 7) {
+            // level 3
+            gameLevel = 3;
+            console.log('level 3');
+        } 
+        if (this.lives >= 9) {
+            // level 4
+            gameLevel = 4;
+            console.log('level 4!');
+        } 
+        if (this.lives == 10) {
+            // player wins
+            console.log('YOU WIN!');     
+        }
+    }
+
 }
 
 /* -------------------------------------
@@ -204,6 +260,8 @@ function displayLives () {
     livesDisplay.innerHTML = addZeroNumber(currentLives); 
     console.log (`display lives says: ${livesDisplay.innerHTML}`); 
 }
+// reset levels 
+
 // time
 function timer () {
     timerInterval = setInterval (function (){
