@@ -99,22 +99,22 @@ class Player {
             if (keyPressed === 'left' && this.x >= 20 ) {
                 this.x -= 100;
                 firstKeypress++;
-                console.log (`x: ${this.x} y:${this.y}`);
+                console.log (`firstKeypress: ${firstKeypress}`);
             }
             if (keyPressed === 'right' && this.x <= 380 ) {
                 this.x += 100;
                 firstKeypress++;
-                console.log (`x: ${this.x} y:${this.y}`);
+                console.log (`firstKeypress: ${firstKeypress}`);
             }
             if (keyPressed === 'down' && this.y <= 405 ) {
                 this.y += 85;
                 firstKeypress++;
-                console.log (`x: ${this.x} y:${this.y}`);
+                console.log (`firstKeypress: ${firstKeypress}`);
             }
             if (keyPressed === 'up' && this.y >= 0) {
                 this.y -= 85;
                 firstKeypress++;
-                console.log (`x: ${this.x} y:${this.y}`);       
+                console.log (`firstKeypress: ${firstKeypress}`);       
             }
             // reset game when player reaches water
             if (this.y <= -10) {
@@ -227,8 +227,7 @@ console.log (`x: ${player.x} y:${player.y}`);
 -------  FUNCTIONS & LISTENERS  --------
 ------------------------------------- */
 // Event Listeners
-// initial game set up on page load
-document.addEventListener("DOMContentLoaded", gameInit);
+
 // restart game
 restartButton.addEventListener('click', gameRestart);
 // This listens for key presses and sends the keys to your
@@ -241,7 +240,7 @@ document.addEventListener('keyup', function listenForKey (e) {
         40: 'down'
     };
     player.handleInput(allowedKeys[e.keyCode]);
-    //
+    // Start game on first keyPress
     if (firstKeypress == 1) {
         gameInit();
     }
@@ -257,7 +256,7 @@ function gameInit () {
 // lives
 function displayLives () {
     let currentLives = player.lives;
-    livesDisplay.innerHTML = addZeroNumber(currentLives); 
+    livesDisplay.innerHTML = currentLives; 
     console.log (`display lives says: ${livesDisplay.innerHTML}`); 
 }
 // reset levels 
@@ -300,6 +299,9 @@ function addZeroNumber (val) {
 // Restart game Function
 function gameRestart () {
     player.reset();
-    resetTimer();
+    sec = 0;
+    min = 0;
+    firstKeypress = 0;
+    //resetTimer();
 }
 
