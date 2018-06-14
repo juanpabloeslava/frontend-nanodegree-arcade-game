@@ -39,3 +39,51 @@ body {
     margin: 0 40px;
     min-width: 55px;
 }
+
+/*
+ * Styles for the Win Modal screen
+ */
+
+ /*
+ * Styles for the Win Screen
+ */
+
+.win-screen {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    /*padding-top: 50px;*/
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(200, 200, 200, 0.7);
+}
+
+.win-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    min-height: 250px;
+    width: 80%;
+    font-size: 20px;
+}
+
+.modal-text { text-align: center; }
+
+.modal-btn {
+    background-color: : red;
+    border: none;
+    color: linear-gradient(to right, lightblue, white);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
