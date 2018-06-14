@@ -299,9 +299,6 @@ function addZeroNumber (val) {
 // Restart game Function
 function gameRestart () {
     player.reset();
-    sec = 0;
-    min = 0;
-    firstKeypress = 0;
-    //resetTimer();
+    resetTimer();
 }
 
