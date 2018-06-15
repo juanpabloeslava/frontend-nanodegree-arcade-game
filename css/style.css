@@ -69,6 +69,8 @@ body {
     font-size: 20px;
 }
 
+.start-message { display: block; }
+
 .modal-text { text-align: center; }
 
 .modal-btn {

@@ -8,10 +8,21 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<!-- win screen -->
-    <div class="modal-screen">
+	<!-- Start screen -->
+    <div id="start-screen" class="modal-screen start-message">
         <div class="modal-message">
-            <p id="modal-text" class="modal-text"></p>
+            <p id="start-text" class="modal-text">
+            	Use the arrows keys to move. <br>
+            	Get to the water to earn a point. <br>
+            	Earn 10 points to win.
+            </p>
+            <button id="start-game" class="modal-btn">Start Game</button>
+        </div>
+    </div>
+    <!-- win screen -->
+    <div id="completion-screen" class="modal-screen">
+        <div class="modal-message">
+            <p id="completion-text" class="modal-text"></p>
             <button id="play-again-btn" class="modal-btn">Play Again!</button>
         </div>
     </div>

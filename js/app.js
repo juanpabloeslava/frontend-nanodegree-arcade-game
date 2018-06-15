@@ -1,7 +1,8 @@
 /* -------------------------------------
 ------  CLASSES AND VARIABLES ----------
 ------------------------------------- */
-// restart game variables
+// start/restart game variables
+const startButton = document.getElementById('start-game');
 const restartButton = document.getElementById('restart-btn');
 const restartButton2 = document.getElementById('play-again-btn');
 // timer variables
@@ -15,9 +16,10 @@ let justDied = 0;
 let livesDisplay = document.getElementById('lives');
 // levels
 let gameLevel = 1;
-// modal window
-const winScreen = document.querySelector('.modal-screen');
-let winText = document.querySelector('#modal-text');
+// modal windows
+const completionScreen = document.querySelector('#completion-screen');
+const startScreen = document.querySelector('#start-screen');
+let winText = document.querySelector('#completion-text');
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -233,7 +235,9 @@ console.log (`x: ${player.x} y:${player.y}`);
 ------------------------------------- */
 // Event Listeners
 
-// restart game
+// start / restart game
+//startButton.addEventListener('click', closeStartWindow);
+startButton.addEventListener('click', closeStartWindow);
 restartButton.addEventListener('click', gameRestart);
 restartButton2.addEventListener('click', gameRestart);
 // This listens for key presses and sends the keys to your
@@ -252,6 +256,9 @@ document.addEventListener('keyup', function listenForKey (e) {
     }
 });
 // init game
+function closeStartWindow () {
+    startScreen.style.display = 'none';
+}
 function gameInit () {
     livesDisplay.innerHTML = '3';
     //start timer
@@ -305,7 +312,7 @@ function addZeroNumber (val) {
 // win and lose
 function youWin () {
     // show message
-    winScreen.style.display = 'block';
+    completionScreen.style.display = 'block';
     // update message content
     winText.innerText =  `Congratulations, you've won!
     Your time : ${addZeroNumber(min)} : ${addZeroNumber(sec)}`;
@@ -313,7 +320,7 @@ function youWin () {
 
 function youLose () {
     // show message
-    winScreen.style.display = 'block';
+    completionScreen.style.display = 'block';
     // update message content
     winText.innerText =  `Unfortunately, you lost. 
     Would you like to try again?
@@ -322,7 +329,7 @@ function youLose () {
 
 // Restart game Function
 function gameRestart () {
-    winScreen.style.display = 'none';
+    completionScreen.style.display = 'none';
     player.reset();
     resetTimer();
 }
