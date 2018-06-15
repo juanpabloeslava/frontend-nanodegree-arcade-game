@@ -44,13 +44,13 @@ class Enemy {
                 this.speed = Math.floor( (Math.random() * 250) + 150 );
             }
             if (gameLevel == 2) {
-                this.speed = Math.floor( (Math.random() * 300) + 200 );
+                this.speed = Math.floor( (Math.random() * 350) + 200 );
             }
             if (gameLevel == 3) {
-                this.speed = Math.floor( (Math.random() * 300) + 250 );
+                this.speed = Math.floor( (Math.random() * 350) + 250 );
             }
             if (gameLevel == 4) {
-                this.speed = Math.floor( (Math.random() * 350) + 250 );
+                this.speed = Math.floor( (Math.random() * 450) + 300 );
             }
         }
         this.checkForCollision();
@@ -64,6 +64,7 @@ class Enemy {
     checkForCollision () {
         if ( (player.x < this.x + 80) && (player.x + 80 > this.x)  && (player.y < this.y + 60) && (player.y + 60 > this.y) ) {
             justDied++;
+            console.log(this.speed);
             if (justDied == 1) {
                 player.die();
             }
