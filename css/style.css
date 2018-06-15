@@ -41,14 +41,10 @@ body {
 }
 
 /*
- * Styles for the Win Modal screen
+ * Styles for the Modal screen
  */
 
- /*
- * Styles for the Win Screen
- */
-
-.win-screen {
+.modal-screen {
     display: none;
     position: fixed;
     z-index: 99;
@@ -60,7 +56,7 @@ body {
     background-color: rgba(200, 200, 200, 0.7);
 }
 
-.win-message {
+.modal-message {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +72,7 @@ body {
 .modal-text { text-align: center; }
 
 .modal-btn {
-    background-color: : red;
+    /*background-color: red;*/
     border: none;
     color: linear-gradient(to right, lightblue, white);
     padding: 15px 32px;

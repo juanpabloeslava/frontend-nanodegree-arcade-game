@@ -2,7 +2,8 @@
 ------  CLASSES AND VARIABLES ----------
 ------------------------------------- */
 // restart game variables
-const restartButton = document.querySelector('#restart-btn');
+const restartButton = document.getElementById('restart-btn');
+const restartButton2 = document.getElementById('play-again-btn');
 // timer variables
 let firstKeypress = 0;
 let minDisplay = document.getElementById('minutes');
@@ -14,6 +15,9 @@ let justDied = 0;
 let livesDisplay = document.getElementById('lives');
 // levels
 let gameLevel = 1;
+// modal window
+const winScreen = document.querySelector('.modal-screen');
+let winText = document.querySelector('#modal-text');
 // Enemy Class our player must avoid
 class Enemy {
     constructor (x, y, speed) {
@@ -172,7 +176,7 @@ class Player {
     checkGameLevel () {
         if (this.lives == 0) {
             // player looses
-            console.log('YOU LOST!');
+            youLose();
         } 
         if (this.lives > 0) {
             // level 1
@@ -196,7 +200,7 @@ class Player {
         } 
         if (this.lives == 10) {
             // player wins
-            console.log('YOU WIN!');     
+            youWin();    
         }
     }
 
@@ -231,6 +235,7 @@ console.log (`x: ${player.x} y:${player.y}`);
 
 // restart game
 restartButton.addEventListener('click', gameRestart);
+restartButton2.addEventListener('click', gameRestart);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function listenForKey (e) {
@@ -297,8 +302,27 @@ function addZeroNumber (val) {
         return valString;
     }
 }
+// win and lose
+function youWin () {
+    // show message
+    winScreen.style.display = 'block';
+    // update message content
+    winText.innerText =  `Congratulations, you've won!
+    Your time : ${addZeroNumber(min)} : ${addZeroNumber(sec)}`;
+}
+
+function youLose () {
+    // show message
+    winScreen.style.display = 'block';
+    // update message content
+    winText.innerText =  `Unfortunately, you lost. 
+    Would you like to try again?
+    Your time : ${addZeroNumber(min)} : ${addZeroNumber(sec)}`;
+}
+
 // Restart game Function
 function gameRestart () {
+    winScreen.style.display = 'none';
     player.reset();
     resetTimer();
 }
