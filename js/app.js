@@ -39,13 +39,11 @@ class Enemy {
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
-        // set a random speed for the enemies
-        // add the speed to the enemies movement
         this.x += this.speed * dt;
         // relocate enemies at the start when they cross the board
         if (this.x >= 505) {
             this.x = -60;
-
+            // set random speed for each enemy. It gets faster as the player earns points (lives) in the game.
             if (gameLevel == 1) {
                 this.speed = Math.floor( (Math.random() * 250) + 150 );
             }
@@ -91,8 +89,7 @@ class Player {
     }
     //Methods for Player's Prototype
     update (dt) {
-        // This thing is called over and over again. If it's not there, nothing shows
-        //console.log (`This is ${this}'s update() Method.`);
+        // This thing is called over and over again byt the game engine. If it's not there, nothing shows
     }
 
     render () {
@@ -152,7 +149,7 @@ class Player {
         this.loseLive();
         setTimeout (function () {  
             player.respawn();
-        }, 1000);
+        }, 300);
     }
 
     getPoint () {
@@ -272,8 +269,6 @@ function displayLives () {
     livesDisplay.innerHTML = currentLives; 
     console.log (`display lives says: ${livesDisplay.innerHTML}`); 
 }
-// reset levels 
-
 // time
 function timer () {
     timerInterval = setInterval (function (){
@@ -327,7 +322,7 @@ function youLose () {
     Your time : ${addZeroNumber(min)} : ${addZeroNumber(sec)}`;
 }
 
-// Restart game Function
+// Restart game
 function gameRestart () {
     completionScreen.style.display = 'none';
     player.reset();
