@@ -308,6 +308,10 @@ function addZeroNumber (val) {
 }
 // win and lose
 function youWin () {
+    // stop timer from going on
+    clearInterval(timerInterval);
+    secDisplay.innerHTML = addZeroNumber(sec);
+    minDisplay.innerHTML = addZeroNumber(min);
     // show message
     completionScreen.style.display = 'block';
     // update message content
@@ -316,6 +320,10 @@ function youWin () {
 }
 
 function youLose () {
+    // stop timer from going on
+    clearInterval(timerInterval);
+    secDisplay.innerHTML = addZeroNumber(sec);
+    minDisplay.innerHTML = addZeroNumber(min);
     // show message
     completionScreen.style.display = 'block';
     // update message content
