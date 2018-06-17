@@ -1,3 +1,4 @@
+"use strict";
 /* -------------------------------------
 ------  CLASSES AND VARIABLES ----------
 ------------------------------------- */
@@ -6,6 +7,7 @@ const startButton = document.getElementById('start-game');
 const restartButton = document.getElementById('restart-btn');
 const restartButton2 = document.getElementById('play-again-btn');
 // timer variables
+let timerInterval;
 let firstKeypress = 0;
 let minDisplay = document.getElementById('minutes');
 let secDisplay = document.getElementById('seconds');
@@ -267,7 +269,7 @@ function gameInit () {
 function displayLives () {
     let currentLives = player.lives;
     livesDisplay.innerHTML = currentLives; 
-    console.log (`display lives says: ${livesDisplay.innerHTML}`); 
+    //console.log (`display lives says: ${livesDisplay.innerHTML}`); 
 }
 // time
 function timer () {
