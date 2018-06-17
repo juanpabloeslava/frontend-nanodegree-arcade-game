@@ -1,6 +1,11 @@
 # Arcade Game Clone
 Juan Pablo Eslava
 
+## How to run the game
+
+Download or clone the game from the project's GitHub repository at (https://github.com/juanpabloeslava/frontend-nanodegree-arcade-game).
+Once you've done this, just open the **index.html** file using your browser. The game runs best in Google Chrome.
+
 ## How to play.
 
 Use the arrow keys to move the character.
